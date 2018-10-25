@@ -210,7 +210,7 @@ Proof. reflexivity. Qed.
 Example test_count2: count 6 [1;2;3;1;4;1] = 0.
 Proof. reflexivity. Qed.
 
-Definition sum : bag -> bag -> bag := alternate.
+Definition sum : bag -> bag -> bag := app.
 
 
 Example test_sum1: count 1 (sum [1;2;3] [1;4;1]) = 3.
@@ -480,14 +480,11 @@ Qed.
 Search sum.
 
 Theorem bag_count_sum : forall (s1 s2: bag) (n :nat),
-  (count n s1) + (count n s2) = count n (sum s1 s2).
+  count n s1 = count n (sum s1 []).
 Proof.
-  intros s1 s2 n. induction s1 as [| s1' c IHn'].
-  - reflexivity.
-  - destruct s2.
-    + simpl. rewrite -> plus_n_O. reflexivity.
-    +
-Abort.
+  intros s1 s2 n.
+  unfold sum. rewrite app_nil_r. reflexivity.
+Qed.
 
 Search rev.
 

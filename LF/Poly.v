@@ -267,6 +267,7 @@ Fixpoint map {X Y:Type} (f:X->Y) (l:list X) : (list Y) :=
   | h :: t => (f h) :: (map f t)
   end.
 
+
 Example test_map1: map (fun x => plus 3 x) [2;0;2] = [5;3;5].
 Proof. reflexivity. Qed.
 
